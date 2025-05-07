@@ -1,12 +1,11 @@
-#!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
+# -*- coding: utf-8 -*-
 import os
 import sys
 
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'storefront.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chatbot.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -14,7 +13,7 @@ def main():
             "Couldn't import Django. Are you sure it's installed and "
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
-        ) from exc
+        )  # 删除 `from None`
     execute_from_command_line(sys.argv)
 
 
