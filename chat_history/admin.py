@@ -54,7 +54,7 @@ class ConversationAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     
     # 添加自定义视图
-    change_form_template = 'admin/chat_history/conversation/change_form.html'
+    change_form_template ='chat_history/conversation/change_form.html'
     
     def get_urls(self):
         from django.urls import path
