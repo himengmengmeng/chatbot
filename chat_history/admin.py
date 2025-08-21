@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.forms import IntegerField
 from django.http.request import HttpRequest
-from . import models
+from.import models
 from django.db.models.aggregates import Count, Max, Min, Sum
 from django.db.models import F
 from django.utils.html import format_html
@@ -17,106 +17,31 @@ from django.db.models.fields import CharField
 from django.db.models import F, Count, Sum, Value
 from django.utils.translation import gettext_lazy as _
 from django.db.models.functions import Concat
+
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import Conversation, Message
-from django import forms
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
 
-load_dotenv()
 
-# 添加发送消息的表单
-class MessageForm(forms.Form):
-    message = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 3, 'cols': 80}),
-        label='发送消息'
-    )
 
 # 内联显示 Message（在 Conversation 详情页）
-class MessageInline(admin.TabularInline):
+class MessageInline(admin.TabularInline):  # 或者 StackedInline 以不同样式显示
     model = Message
-    extra = 0
-    fields = ('role', 'content', 'timestamp')
-    readonly_fields = ('timestamp',)
-    can_delete = False  # 禁用删除选项
+    extra = 0  # 不显示空表单
+    fields = ('role', 'content', 'timestamp')  # 显示的字段
+    readonly_fields = ('timestamp',)  # 时间戳不可编辑
+   
 
 @admin.register(Conversation)
 class ConversationAdmin(admin.ModelAdmin):
     list_display = ('id', 'linked_user', 'created_at')
-    list_display_links = ('id',)
-    inlines = [MessageInline]
+    list_display_links = ('id',)  # 使 ID 可点击进入详情页
+    inlines = [MessageInline]  # 关键：内联显示 Message
+    
     list_filter = ('created_at', 'user')
     search_fields = ('user__username', 'id')
     date_hierarchy = 'created_at'
-    raw_id_fields = ('user',)
-    
-    # 添加自定义视图
-    change_form_template = 'admin/chat_history/conversation/change_form.html'
-    
-    def get_urls(self):
-        from django.urls import path
-        urls = super().get_urls()
-        custom_urls = [
-            path('<path:object_id>/send_message/',
-                 self.admin_site.admin_view(self.send_message),
-                 name='chat_history_conversation_send_message'),
-        ]
-        return custom_urls + urls
-    
-    def send_message(self, request, object_id):
-        if request.method != 'POST':
-            return HttpResponseRedirect('..')
-        
-        conversation = self.get_object(request, object_id)
-        form = MessageForm(request.POST)
-        
-        if form.is_valid():
-            user_message = form.cleaned_data['message']
-            
-            try:
-                # 保存用户消息
-                conversation.messages.create(
-                    role='human',
-                    content=user_message
-                )
-                
-                # 调用GPT-4o生成回复
-                model = ChatOpenAI(model="gpt-4o")
-                history = [
-                    {"role": msg.role, "content": msg.content}
-                    for msg in conversation.messages.all()
-                ]
-                result = model.invoke(history + [{"role": "user", "content": user_message}])
-                
-                # 保存AI回复
-                conversation.messages.create(
-                    role='ai',
-                    content=result.content
-                )
-                
-                self.message_user(
-                    request, 
-                    "消息已发送并收到AI回复", 
-                    messages.SUCCESS
-                )
-            except Exception as e:
-                self.message_user(
-                    request, 
-                    f"发送消息时出错: {str(e)}", 
-                    messages.ERROR
-                )
-        
-        return HttpResponseRedirect('..')
-    
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['message_form'] = MessageForm()
-        return super().change_view(
-            request, object_id, form_url, extra_context=extra_context,
-        )
+    raw_id_fields = ('user',)  # 优化用户选择框
     
     def linked_user(self, obj):
         return format_html(
@@ -141,10 +66,6 @@ class MessageAdmin(admin.ModelAdmin):
     date_hierarchy = 'timestamp'
     list_select_related = ('conversation__user',)
     raw_id_fields = ('conversation',)
-    
-    # 禁用删除功能
-    def has_delete_permission(self, request, obj=None):
-        return False
     
     def conversation_link(self, obj):
         return format_html(
@@ -182,3 +103,21 @@ class MessageAdmin(admin.ModelAdmin):
         )
     linked_user.short_description = '所属用户'
     linked_user.admin_order_field = 'conversation__user__username'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
