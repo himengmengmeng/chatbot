@@ -24,7 +24,6 @@
 
 {% block admin_change_form_document_ready %}
 {{ block.super }}
-{% if original %}
 <script>
 (function($) {
     // 添加一些JavaScript来处理表单提交后的页面刷新
@@ -45,5 +44,4 @@
     });
 })(django.jQuery);
 </script>
-{% endif %}
 {% endblock %}
