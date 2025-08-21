@@ -46,11 +46,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'djoser',
+    'silk',
     'rest_framework',
     'debug_toolbar',
     'chat_history',
     'core.apps.CoreConfig',
     'guardian',
+    
 ]
 
 
@@ -58,14 +60,21 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
+    
+    
 ]
 
+if DEBUG:
+    SILKY_PUBLIC = True  # 允许无需登录访问 Silk
+    SILKY_DEBUG = True   # 启用调试模式
 
 
 
@@ -178,8 +187,6 @@ DJOSER = {
 }
 
 
-
-
 AUTH_USER_MODEL ='core.User'
 
 SIMPLE_JWT = {
@@ -192,6 +199,20 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # 默认后端
     'guardian.backends.ObjectPermissionBackend',  # guardian 后端
 )
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+
+
 
 
 
