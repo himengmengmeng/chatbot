@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('role', models.CharField(choices=[('system', 'System'), ('human', 'User'), ('ai', 'Assistant')], max_length=10)),
                 ('content', models.TextField()),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('conversation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='chat_history.conversation')),
+                ('conversation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='chat_app.conversation')),
             ],
             options={
                 'ordering': ['timestamp'],
