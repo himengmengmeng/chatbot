@@ -69,7 +69,7 @@ class MessageAdmin(admin.ModelAdmin):
     
     def conversation_link(self, obj):
         return format_html(
-            '<a href="/admin/chat_history/conversation/{}/change/">{}</a>',
+            '<a href="/admin/chat_app/conversation/{}/change/">{}</a>',
             obj.conversation.id,
             obj.conversation.id
         )

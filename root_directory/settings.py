@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'silk',
     'rest_framework',
     'debug_toolbar',
-    'chat_history',
+    'chat_app',
     'core.apps.CoreConfig',
     'guardian',
     
@@ -84,7 +84,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
-ROOT_URLCONF = 'chatbot.urls'
+ROOT_URLCONF = 'root_directory.urls'
 
 TEMPLATES = [
     {
@@ -102,7 +102,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'chatbot.wsgi.application'
+WSGI_APPLICATION = 'root_directory.wsgi.application'
 
 
 # Database
@@ -111,7 +111,7 @@ WSGI_APPLICATION = 'chatbot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'chatbot',          # 确保数据库已创建
+        'NAME': 'root_directory',          # 确保数据库已创建
         'HOST': 'localhost',
         'USER': 'root',            # MySQL 用户名
         'PASSWORD': '1234567890',  # MySQL 密码
