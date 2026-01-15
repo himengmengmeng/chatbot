@@ -1,9 +1,172 @@
 # 🤖 Chatbot API
 
-<details>
-<summary>🇨🇳 中文 / English</summary>
+> **Language / 语言切换**: [English](#-overview) | [中文](#-项目简介)
 
 ---
+
+<details open>
+<summary><b>🇬🇧 English</b></summary>
+
+## 📖 Overview
+
+A smart chatbot backend API service built with **Django REST Framework**, integrated with **OpenAI GPT-4o** model, supporting multi-turn conversation management and user authentication.
+
+## ✨ Key Features
+
+- 🔐 **JWT Authentication** - Secure auth system based on Djoser + SimpleJWT
+- 💬 **Multi-turn Conversation** - Create, query, and delete conversation sessions
+- 🧠 **GPT-4o Integration** - Seamless OpenAI integration via LangChain
+- 👤 **Custom User Model** - Extended Django user system with additional fields
+- ⚡ **Redis Caching** - High-performance cache support
+- 🔍 **Debug Tools** - Integrated Django Debug Toolbar and Silk profiler
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Framework | Django 4.2 + Django REST Framework 3.16 |
+| Database | MySQL |
+| Cache | Redis |
+| Auth | JWT (djangorestframework-simplejwt) |
+| AI | OpenAI GPT-4o + LangChain |
+| Debug | Django Debug Toolbar + Silk |
+
+## 📁 Project Structure
+
+```
+chatbot/
+├── chat_app/           # Chat functionality module
+│   ├── models.py       # Conversation and Message models
+│   ├── views.py        # API views
+│   ├── serializers.py  # Data serialization
+│   └── urls.py         # Route configuration
+├── core/               # Core module
+│   ├── models.py       # Custom user model
+│   └── serializers.py  # User serialization
+├── root_directory/     # Project configuration
+│   ├── settings.py     # Django settings
+│   └── urls.py         # Main routes
+├── manage.py
+└── requirements.txt
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.8+
+- MySQL 5.7+
+- Redis 6.0+
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+cd chatbot
+```
+
+2. **Create virtual environment**
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# or venv\Scripts\activate  # Windows
+```
+
+3. **Install dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+4. **Configure environment variables**
+```bash
+# Create .env file
+OPENAI_API_KEY=your_openai_api_key
+```
+
+5. **Configure database**
+```bash
+# Create database in MySQL
+CREATE DATABASE root_directory CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+6. **Run migrations**
+```bash
+python manage.py migrate
+```
+
+7. **Start the server**
+```bash
+python manage.py runserver
+```
+
+## 📡 API Endpoints
+
+### Authentication API
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/users/` | User registration |
+| POST | `/auth/jwt/create/` | Obtain JWT Token |
+| POST | `/auth/jwt/refresh/` | Refresh Token |
+| GET | `/auth/users/me/` | Get current user info |
+
+### Chat API
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/root_directory/api/conversations/` | List conversations |
+| POST | `/root_directory/api/conversations/` | Create new conversation |
+| GET | `/root_directory/api/conversations/{id}/` | Get conversation details |
+| DELETE | `/root_directory/api/conversations/{id}/` | Delete conversation |
+| POST | `/root_directory/api/conversations/{id}/send_message/` | Send message and get AI response |
+
+## 📝 Usage Examples
+
+### 1. User Registration
+```bash
+curl -X POST http://localhost:8000/auth/users/ \
+  -H "Content-Type: application/json" \
+  -d '{"username": "testuser", "email": "test@example.com", "password": "your_password"}'
+```
+
+### 2. Get Token
+```bash
+curl -X POST http://localhost:8000/auth/jwt/create/ \
+  -H "Content-Type: application/json" \
+  -d '{"username": "testuser", "password": "your_password"}'
+```
+
+### 3. Create Conversation
+```bash
+curl -X POST http://localhost:8000/root_directory/api/conversations/ \
+  -H "Authorization: JWT your_access_token"
+```
+
+### 4. Send Message
+```bash
+curl -X POST http://localhost:8000/root_directory/api/conversations/1/send_message/ \
+  -H "Authorization: JWT your_access_token" \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello, please introduce yourself"}'
+```
+
+## 🔧 Development Tools
+
+- **Debug Toolbar**: http://localhost:8000/__debug__/
+- **Silk Profiler**: http://localhost:8000/silk/
+- **Django Admin**: http://localhost:8000/admin/
+
+## 📄 License
+
+MIT License
+
+</details>
+
+---
+
+<details>
+<summary><b>🇨🇳 中文</b></summary>
 
 ## 📖 项目简介
 
@@ -159,160 +322,4 @@ curl -X POST http://localhost:8000/root_directory/api/conversations/1/send_messa
 
 MIT License
 
----
-
 </details>
-
-## 📖 Overview
-
-A smart chatbot backend API service built with **Django REST Framework**, integrated with **OpenAI GPT-4o** model, supporting multi-turn conversation management and user authentication.
-
-## ✨ Key Features
-
-- 🔐 **JWT Authentication** - Secure auth system based on Djoser + SimpleJWT
-- 💬 **Multi-turn Conversation** - Create, query, and delete conversation sessions
-- 🧠 **GPT-4o Integration** - Seamless OpenAI integration via LangChain
-- 👤 **Custom User Model** - Extended Django user system with additional fields
-- ⚡ **Redis Caching** - High-performance cache support
-- 🔍 **Debug Tools** - Integrated Django Debug Toolbar and Silk profiler
-
-## 🛠️ Tech Stack
-
-| Category | Technology |
-|----------|------------|
-| Framework | Django 4.2 + Django REST Framework 3.16 |
-| Database | MySQL |
-| Cache | Redis |
-| Auth | JWT (djangorestframework-simplejwt) |
-| AI | OpenAI GPT-4o + LangChain |
-| Debug | Django Debug Toolbar + Silk |
-
-## 📁 Project Structure
-
-```
-chatbot/
-├── chat_app/           # Chat functionality module
-│   ├── models.py       # Conversation and Message models
-│   ├── views.py        # API views
-│   ├── serializers.py  # Data serialization
-│   └── urls.py         # Route configuration
-├── core/               # Core module
-│   ├── models.py       # Custom user model
-│   └── serializers.py  # User serialization
-├── root_directory/     # Project configuration
-│   ├── settings.py     # Django settings
-│   └── urls.py         # Main routes
-├── manage.py
-└── requirements.txt
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.8+
-- MySQL 5.7+
-- Redis 6.0+
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone <repository-url>
-cd chatbot
-```
-
-2. **Create virtual environment**
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
-# or venv\Scripts\activate  # Windows
-```
-
-3. **Install dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Configure environment variables**
-```bash
-# Create .env file
-OPENAI_API_KEY=your_openai_api_key
-```
-
-5. **Configure database**
-```bash
-# Create database in MySQL
-CREATE DATABASE root_directory CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-
-6. **Run migrations**
-```bash
-python manage.py migrate
-```
-
-7. **Start the server**
-```bash
-python manage.py runserver
-```
-
-## 📡 API Endpoints
-
-### Authentication API
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/auth/users/` | User registration |
-| POST | `/auth/jwt/create/` | Obtain JWT Token |
-| POST | `/auth/jwt/refresh/` | Refresh Token |
-| GET | `/auth/users/me/` | Get current user info |
-
-### Chat API
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/root_directory/api/conversations/` | List conversations |
-| POST | `/root_directory/api/conversations/` | Create new conversation |
-| GET | `/root_directory/api/conversations/{id}/` | Get conversation details |
-| DELETE | `/root_directory/api/conversations/{id}/` | Delete conversation |
-| POST | `/root_directory/api/conversations/{id}/send_message/` | Send message and get AI response |
-
-## 📝 Usage Examples
-
-### 1. User Registration
-```bash
-curl -X POST http://localhost:8000/auth/users/ \
-  -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "email": "test@example.com", "password": "your_password"}'
-```
-
-### 2. Get Token
-```bash
-curl -X POST http://localhost:8000/auth/jwt/create/ \
-  -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "password": "your_password"}'
-```
-
-### 3. Create Conversation
-```bash
-curl -X POST http://localhost:8000/root_directory/api/conversations/ \
-  -H "Authorization: JWT your_access_token"
-```
-
-### 4. Send Message
-```bash
-curl -X POST http://localhost:8000/root_directory/api/conversations/1/send_message/ \
-  -H "Authorization: JWT your_access_token" \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Hello, please introduce yourself"}'
-```
-
-## 🔧 Development Tools
-
-- **Debug Toolbar**: http://localhost:8000/__debug__/
-- **Silk Profiler**: http://localhost:8000/silk/
-- **Django Admin**: http://localhost:8000/admin/
-
-## 📄 License
-
-MIT License
