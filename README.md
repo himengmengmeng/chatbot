@@ -1,13 +1,10 @@
 # 🤖 Chatbot API
 
-> **Language / 语言切换**: [English](#-overview) | [中文](#-项目简介)
+<a href="#english">English</a> | <a href="#中文">中文</a>
 
 ---
 
-<details open>
-<summary><b>🇬🇧 English</b></summary>
-
-## 📖 Overview
+<h2 id="english">📖 Overview</h2>
 
 A smart chatbot backend API service built with **Django REST Framework**, integrated with **OpenAI GPT-4o** model, supporting multi-turn conversation management and user authentication.
 
@@ -161,14 +158,11 @@ curl -X POST http://localhost:8000/root_directory/api/conversations/1/send_messa
 
 MIT License
 
-</details>
-
 ---
 
-<details>
-<summary><b>🇨🇳 中文</b></summary>
+<h2 id="中文">📖 项目简介</h2>
 
-## 📖 项目简介
+<a href="#english">⬆️ Back to English</a>
 
 这是一个基于 **Django REST Framework** 构建的智能聊天机器人后端 API 服务，集成了 **OpenAI GPT-4o** 模型，支持多轮对话管理和用户认证。
 
@@ -321,5 +315,3 @@ curl -X POST http://localhost:8000/root_directory/api/conversations/1/send_messa
 ## 📄 许可证
 
 MIT License
-
-</details>
