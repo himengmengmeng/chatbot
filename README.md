@@ -270,11 +270,11 @@ python manage.py runserver
 
 | 方法 | 端点 | 描述 |
 |------|------|------|
-| GET | `/root_directory/api/conversations/` | 获取对话列表 |
-| POST | `/root_directory/api/conversations/` | 创建新对话 |
-| GET | `/root_directory/api/conversations/{id}/` | 获取对话详情 |
-| DELETE | `/root_directory/api/conversations/{id}/` | 删除对话 |
-| POST | `/root_directory/api/conversations/{id}/send_message/` | 发送消息并获取 AI 回复 |
+| GET | `/api/conversations/` | 获取对话列表 |
+| POST | `/api/conversations/` | 创建新对话 |
+| GET | `/api/conversations/{id}/` | 获取对话详情 |
+| DELETE | `/api/conversations/{id}/` | 删除对话 |
+| POST | `/api/conversations/{id}/send_message/` | 发送消息并获取 AI 回复 |
 
 ## 📝 使用示例
 
