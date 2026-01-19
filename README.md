@@ -112,11 +112,11 @@ python manage.py runserver
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/root_directory/api/conversations/` | List conversations |
-| POST | `/root_directory/api/conversations/` | Create new conversation |
-| GET | `/root_directory/api/conversations/{id}/` | Get conversation details |
-| DELETE | `/root_directory/api/conversations/{id}/` | Delete conversation |
-| POST | `/root_directory/api/conversations/{id}/send_message/` | Send message and get AI response |
+| GET | `/api/conversations/` | List conversations |
+| POST | `/api/conversations/` | Create new conversation |
+| GET | `api/conversations/{id}/` | Get conversation details |
+| DELETE | `api/conversations/{id}/` | Delete conversation |
+| POST | `api/conversations/{id}/send_message/` | Send message and get AI response |
 
 ## 📝 Usage Examples
 
