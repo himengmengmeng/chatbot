@@ -136,13 +136,13 @@ curl -X POST http://localhost:8000/auth/jwt/create/ \
 
 ### 3. Create Conversation
 ```bash
-curl -X POST http://localhost:8000/root_directory/api/conversations/ \
+curl -X POST http://localhost:8000/api/conversations/ \
   -H "Authorization: JWT your_access_token"
 ```
 
 ### 4. Send Message
 ```bash
-curl -X POST http://localhost:8000/root_directory/api/conversations/1/send_message/ \
+curl -X POST http://localhost:8000/api/conversations/1/send_message/ \
   -H "Authorization: JWT your_access_token" \
   -H "Content-Type: application/json" \
   -d '{"message": "Hello, please introduce yourself"}'
@@ -294,13 +294,13 @@ curl -X POST http://localhost:8000/auth/jwt/create/ \
 
 ### 3. 创建对话
 ```bash
-curl -X POST http://localhost:8000/root_directory/api/conversations/ \
+curl -X POST http://localhost:8000/api/conversations/ \
   -H "Authorization: JWT your_access_token"
 ```
 
 ### 4. 发送消息
 ```bash
-curl -X POST http://localhost:8000/root_directory/api/conversations/1/send_message/ \
+curl -X POST http://localhost:8000/api/conversations/1/send_message/ \
   -H "Authorization: JWT your_access_token" \
   -H "Content-Type: application/json" \
   -d '{"message": "你好，请介绍一下你自己"}'
